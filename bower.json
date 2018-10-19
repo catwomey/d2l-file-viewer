@@ -16,7 +16,8 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
-    "d2l-video": "Brightspace/d2l-video#latest"
+    "d2l-video": "Brightspace/d2l-video#latest",
+    "pdfjs-dist": "^2.0.550"
   },
   "devDependencies": {
     "d2l-typography": "BrightspaceUI/typography#^6.0.0",

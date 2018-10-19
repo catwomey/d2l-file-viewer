@@ -9,6 +9,7 @@
 		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 		<link rel="import" href="../../d2l-typography/d2l-typography.html">
 		<link rel="import" href="../d2l-file-viewer.html">
+		<link rel="import" href="../pdf-viewer.html">
 		<custom-style>
 			<style is="custom-style" include="demo-pages-shared-styles"></style>
 		</custom-style>
@@ -22,11 +23,19 @@
 		</style>
 	</head>
 	<body unresolved class="d2l-typography">
-		<div class="vertical-section-container centered">
+		<!-- <div class="vertical-section-container centered">
 			<h3>d2l-file-viewer</h3>
 			<demo-snippet>
 				<template>
 					<d2l-file-viewer src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"></d2l-file-viewer>
+				</template>
+			</demo-snippet>
+		</div> -->
+		<div class="vertical-section-container centered">
+			<h3>pdf-viewer</h3>
+			<demo-snippet>
+				<template>
+					<pdf-viewer fileSrc="compressed.tracemonkey-pldi-09.pdf"></pdf-viewer>
 				</template>
 			</demo-snippet>
 		</div>

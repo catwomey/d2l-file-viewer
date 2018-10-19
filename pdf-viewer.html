@@ -1,0 +1,92 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
+
+<link rel="stylesheet" href="bower_components/pdfjs-dist/web/pdf_viewer.css">
+
+<script src="bower_components/pdfjs-dist/build/pdf.js"></script>
+<script src="bower_components/pdfjs-dist/web/pdf_viewer.js"></script>
+
+
+<dom-module id="pdf-viewer">
+	<template strip-whitespace>
+		<style>
+			:host {
+				display: inline-block;
+			}
+		</style>
+	<body>
+		<div id="viewerContainer">
+	  		<div id="viewer" class="pdfViewer"></div>
+		</div>
+  	</body>
+	</template>
+	<script>
+		/**
+		 * `<pdf-viewer>`
+		 *
+		 * @customElement
+		 * @polymer
+		 * @demo demo/index.hmtl
+		 */
+		class PdfViewer extends Polymer.Element {
+			static get is() { return 'pdf-viewer'; }
+			static get properties() {
+				return {
+					fileSrc:{
+						type: String
+					}
+				};
+			}
+			ready() {
+				super.ready();
+				var container = this.$.viewerContainer;
+				console.log(this.$.viewerContainer);
+				//var container = document.getElementById('viewerContainer');
+
+				// (Optionally) enable hyperlinks within PDF files.
+				var pdfLinkService = new pdfjsViewer.PDFLinkService();
+
+				// (Optionally) enable find controller.
+				var pdfFindController = new pdfjsViewer.PDFFindController({
+				linkService: pdfLinkService,
+				});
+
+				var pdfViewer = new pdfjsViewer.PDFViewer({
+				container: container,
+				linkService: pdfLinkService,
+				findController: pdfFindController,
+				});
+				pdfLinkService.setViewer(pdfViewer);
+
+				container.addEventListener('pagesinit', function () {
+				// We can use pdfViewer now, e.g. let's change default scale.
+				pdfViewer.currentScaleValue = 'page-width';
+
+				if (SEARCH_FOR) { // We can try search for things
+					pdfFindController.executeCommand('find', { query: SEARCH_FOR, });
+				}
+				});
+
+				// Loading document.
+				pdfjsLib.getDocument({
+				url: 'http://localhost:8081/components/d2l-file-viewer/demo/compressed.tracemonkey-pldi-09.pdf'
+				}).then(function(pdfDocument) {
+				// Document loaded, specifying document for the viewer and
+				// the (optional) linkService.
+				pdfViewer.setDocument(pdfDocument);
+
+				pdfLinkService.setDocument(pdfDocument, null);
+				});
+			}
+
+			constructor() {
+				super();
+			}
+		}
+
+
+
+		customElements.define(PdfViewer.is, PdfViewer);
+	</script>
+
+</dom-module>
